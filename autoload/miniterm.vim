@@ -3,6 +3,7 @@ vim9script
 # Configuration
 # g:miniterm_proportion = get(g:, "miniterm_proportion", 0.28)
 # g:miniterm_position = get(g:, "miniterm_position", "bottom")
+# g:miniterm_env_shell = get(g:, "miniterm_env_shell", false)
 
 # Terminal class
 def Terminal(cmd = ''): dict<any>
@@ -10,7 +11,8 @@ def Terminal(cmd = ''): dict<any>
         bufnr: 0,
     }
 
-    self.bufnr = term_start($SHELL, { 
+    var shel = g:miniterm_env_shell ? $SHELL : &shell
+    self.bufnr = term_start(shel, { 
         hidden: 1, 
         term_kill: 'hup' 
     })
